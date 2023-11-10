@@ -7,6 +7,7 @@ namespace App;
 use App\Models\Article;
 use App\Models\ArticleCollection;
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 
 class Api
 {
@@ -28,30 +29,12 @@ class Api
             "country" => $country,
             "apiKey" => $_ENV['NEWS_API_KEY']
         ]);
-        $response = $this->client->get(self::TOP_HEADLINES_URL . $query);
 
-        $data = json_decode((string)$response->getBody());
-
-        foreach ($data->articles as $article) {
-            $articles->add(
-                new Article(
-                    $article->source->name,
-                    $article->author,
-                    $article->title,
-                    $article->description,
-                    $article->url,
-                    $article->urlToImage ?? "blank.jpg",
-                    $article->publishedAt,
-                    $article->content,
-                )
-            );
-        }
-        return $articles;
+        return $this->buildArticles($this->client->get(self::TOP_HEADLINES_URL . $query));
     }
 
     public function fetchEverything(string $keyword, ?string $from, ?string $to): ArticleCollection
     {
-        $articles = new ArticleCollection();
         $query = http_build_query([
             "q" => $keyword,
             "from" => $from,
@@ -60,8 +43,13 @@ class Api
             "sortBy" => 'popularity',
             "apiKey" => $_ENV['NEWS_API_KEY']
         ]);
-        $response = $this->client->get(self::EVERYTHING_URL . $query);
 
+        return $this->buildArticles($this->client->get(self::EVERYTHING_URL . $query));
+    }
+
+    public function buildArticles(ResponseInterface $response): ArticleCollection
+    {
+        $articles = new ArticleCollection();
         $data = json_decode((string)$response->getBody());
 
         foreach ($data->articles as $article) {
