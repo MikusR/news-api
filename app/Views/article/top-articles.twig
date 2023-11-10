@@ -1,15 +1,19 @@
 {% include 'header.twig' %}
 {% for article in articles.list %}
 
-    <div>{{ article.source }}</div>
-    <div>{{ article.author }}</div>
-    <div>{{ article.title }}</div>
-    <div>{{ article.description }}</div>
-    <a href="{{ article.url }}">{{ article.url }}</a>
-    <img src="{{ article.urlToImage }}">
-    <div>{{ article.publishedAt }}</div>
-    <br/>
-
+    <article>
+        <header>
+            {{ article.title }}<br/>
+            {{ article.author }}
+        </header>
+        <figure>
+            <img src="{{ article.urlToImage }}">
+            <figcaption> {{ article.description }}</figcaption>
+        </figure>
+        <footer>
+            <a href="{{ article.url }}" target="_blank">{{ article.source }}</a><br/>
+            {{ article.publishedAt }}
+    </article>
 {% endfor %}
 
 {% include 'footer.twig' %}
