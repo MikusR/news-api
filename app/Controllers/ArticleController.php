@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Api;
 use App\Response;
-use ReflectionClass;
+
 
 
 class ArticleController
@@ -29,11 +29,11 @@ class ArticleController
         );
     }
 
-    public function search(array $vars): Response
+    public function search(): Response
     {
         if (!isset($_GET['keyword'])) {
             return new Response('error', []);
-        };
+        }
         $keyword = $_GET['keyword'];
         $from = $_GET['from'] ?? null;
         $to = $_GET['to'] ?? null;

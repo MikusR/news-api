@@ -9,6 +9,8 @@ use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 use FastRoute;
+use App\Controllers\IndexController;
+use App\Controllers\ArticleController;
 
 class Application
 {
@@ -21,8 +23,9 @@ class Application
         $twig->addExtension(new DebugExtension());
         {
             $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $router) {
-                $router->addRoute('GET', '/search', ['App\Controllers\ArticleController', 'search']);
-                $router->addRoute('GET', '/[{country}]', ['App\Controllers\ArticleController', 'index']);
+                $router->addRoute('GET', '/search', [ArticleController::class, 'search']);
+                $router->addRoute('GET', '/country/[{country}]', [ArticleController::class, 'index']);
+                $router->addRoute('GET', '/', [IndexController::class, 'index']);
             });
 
 // Fetch method and URI from somewhere
@@ -68,7 +71,7 @@ class Application
     {
         switch ($country) {
             case 'lv':
-                return '🇱🇻';;
+                return '🇱🇻';
             case 'ua':
                 return '🇺🇦';
             default:

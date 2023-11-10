@@ -1,6 +1,76 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .flag-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .flag-button {
+            background-color: #555;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        form {
+            background-color: #eee;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        label {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        main {
+            padding: 20px;
+        }
+    </style>
     <script type="module" defer>
         import {polyfillCountryFlagEmojis} from "https://cdn.skypack.dev/country-flag-emoji-polyfill";
 
@@ -14,11 +84,12 @@
 </head>
 <body>
 <nav>
-    <ul>
-        <li><a href="/lv">🇱🇻</a></li>
-        <li><a href="/ua">🇺🇦</a></li>
-        <li><a href="/us">🇺🇸</a></li>
-    </ul>
+    <div class="flag-buttons">
+        <button class="flag-button" onclick="location.href='/country/lv'">🇱🇻</button>
+        <button class="flag-button" onclick="location.href='/country/gb'">🇬🇧</button>
+        <button class="flag-button" onclick="location.href='/country/us'">🇺🇸</button>
+        <button class="flag-button" onclick="location.href='/'">Home</button>
+    </div>
     <ul>
         <li><a href="{{ country }}?category=technology">technology</a></li>
         <li><a href="{{ country }}?category=entertainment">entertainment</a></li>
