@@ -17,6 +17,8 @@
     "nesbot/carbon": "^2.71",
     "guzzlehttp/guzzle": "^7.8",
     "symfony/var-dumper": "^5.4",
-    "vlucas/phpdotenv": "^5.5"
+    "vlucas/phpdotenv": "^5.5",
+    "picocss/pico": "^1.5",
+    "ext-json": "*"
   }
 }

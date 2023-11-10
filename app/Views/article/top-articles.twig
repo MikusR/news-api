@@ -1,0 +1,15 @@
+{% include 'header.twig' %}
+{% for article in articles.list %}
+
+    <div>{{ article.source }}</div>
+    <div>{{ article.author }}</div>
+    <div>{{ article.title }}</div>
+    <div>{{ article.description }}</div>
+    <a href="{{ article.url }}">{{ article.url }}</a>
+    <img src="{{ article.urlToImage }}">
+    <div>{{ article.publishedAt }}</div>
+    <br/>
+
+{% endfor %}
+
+{% include 'footer.twig' %}

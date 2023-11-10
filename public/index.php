@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use app\Application;
+use App\Application;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
