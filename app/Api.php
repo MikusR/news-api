@@ -40,7 +40,39 @@ class Api
                     $article->title,
                     $article->description,
                     $article->url,
-                    $article->urlToImage,
+                    $article->urlToImage ?? "blank.jpg",
+                    $article->publishedAt,
+                    $article->content,
+                )
+            );
+        }
+        return $articles;
+    }
+
+    public function fetchEverything(string $keyword, ?string $from, ?string $to): ArticleCollection
+    {
+        $articles = new ArticleCollection();
+        $query = http_build_query([
+            "q" => $keyword,
+            "from" => $from,
+            "to" => $to,
+            "language" => 'en',
+            "sortBy" => 'popularity',
+            "apiKey" => $_ENV['NEWS_API_KEY']
+        ]);
+        $response = $this->client->get(self::EVERYTHING_URL . $query);
+
+        $data = json_decode((string)$response->getBody());
+
+        foreach ($data->articles as $article) {
+            $articles->add(
+                new Article(
+                    $article->source->name,
+                    $article->author,
+                    $article->title,
+                    $article->description,
+                    $article->url,
+                    $article->urlToImage ?? "blank.jpg",
                     $article->publishedAt,
                     $article->content,
                 )

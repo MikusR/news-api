@@ -21,7 +21,8 @@ class Application
         $twig->addExtension(new DebugExtension());
         {
             $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $router) {
-                $router->addRoute('GET', '/', ['App\Controllers\ArticleController', 'index']);
+                $router->addRoute('GET', '/search', ['App\Controllers\ArticleController', 'search']);
+                $router->addRoute('GET', '/[{country}]', ['App\Controllers\ArticleController', 'index']);
             });
 
 // Fetch method and URI from somewhere
@@ -50,13 +51,28 @@ class Application
 
 
                     $response = (new $className())->{$method}($vars);
-
+                    $twig->addGlobal('countryFlag', $this->getFlag($vars['country'] ?? 'us'));
+                    $twig->addGlobal('country', $vars['country'] ?? 'us');
+                    $twig->addGlobal('category', $vars['category'] ?? $_GET['category'] ?? null);
+                    $twig->addGlobal('keyword', $_GET['keyword'] ?? null);
 
                     echo $twig->render($response->view() . ".twig", $response->articles());
 
 
                     break;
             }
+        }
+    }
+
+    public function getFlag(?string $country): string
+    {
+        switch ($country) {
+            case 'lv':
+                return '🇱🇻';;
+            case 'ua':
+                return '🇺🇦';
+            default:
+                return '🇺🇸🇺🇸🇺🇸';
         }
     }
 }

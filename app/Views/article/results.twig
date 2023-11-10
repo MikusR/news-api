@@ -1,8 +1,6 @@
 {% include 'header.twig' %}
-<h1>News for {{ countryFlag }}</h1>
-{% if not category is null %}
-    <h2>{{ category }}</h2>
-{% endif %}
+<h1>Results for {{ keyword }}</h1>
+
 {% for article in articles.list %}
 
     <article>

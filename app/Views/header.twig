@@ -10,18 +10,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/pico.classless.css">
 
-    <title>🇱🇻Hello, world! </title>
+    <title>News for {{ countryFlag }}</title>
 </head>
 <body>
 <nav>
     <ul>
-        <li><strong>🇱🇻</strong></li>
+        <li><a href="/lv">🇱🇻</a></li>
+        <li><a href="/ua">🇺🇦</a></li>
+        <li><a href="/us">🇺🇸</a></li>
     </ul>
     <ul>
-        <li><a href="#">🇱🇻</a></li>
-        <li><a href="#">🇱🇻</a></li>
-        <li><a href="#" role="button">🇱🇻</a></li>
+        <li><a href="{{ country }}?category=technology">technology</a></li>
+        <li><a href="{{ country }}?category=entertainment">entertainment</a></li>
+        <li><a href="{{ country }}?category=science">science</a></li>
     </ul>
 </nav>
+<form action="/search" method="GET">
+    <label>
+        <input type="search" name="keyword" placeholder="Keyword">
+        <input type="text" name="from" placeholder="from">
+        <input type="text" name="to" placeholder="to">
+    </label>
+    <button type="submit">Search</button>
+</form>
 <main>
-    <h1>Hello, world!🇱🇻</h1>
+
